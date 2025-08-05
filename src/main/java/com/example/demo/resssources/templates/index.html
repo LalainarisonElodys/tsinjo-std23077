@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tsinjo - Dons & Aides</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+<div class="max-w-4xl mx-auto py-10 px-6">
+    <h1 class="text-4xl font-bold text-center text-blue-700 mb-10">Tsinjo - Dons & Aides</h1>
+
+    <!-- Formulaire de don -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-10">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Faire un don</h2>
+        <form th:action="@{/donate}" method="post" class="grid grid-cols-1 gap-4">
+            <input type="text" name="fullName" placeholder="Nom complet"
+                   class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+
+            <input type="email" name="email" placeholder="Email"
+                   class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+
+            <input type="text" name="id" placeholder="ID du paiement"
+                   class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+
+            <input type="number" name="amount" placeholder="Montant"
+                   class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+
+            <input type="text" name="paymentMethod" placeholder="Méthode"
+                   class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+
+            <button type="submit"
+                    class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+                Donner
+            </button>
+        </form>
+    </div>
+
+    <!-- Historique des dons -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-10">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Historique des Dons</h2>
+        <ul class="space-y-2">
+            <li th:each="d : ${donations}" class="bg-gray-100 p-4 rounded-md">
+                <p class="text-gray-700">
+                    Don de <span class="font-semibold text-blue-600" th:text="${d.donor.fullName}"></span> —
+                    <span class="text-green-600" th:text="${d.payment.amount} + ' Ar'"></span> —
+                    <span class="italic text-sm" th:text="${d.payment.status}"></span>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Historique des aides -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Historique des Aides</h2>
+        <ul class="space-y-2">
+            <li th:each="h : ${helps}" class="bg-gray-100 p-4 rounded-md">
+                <p class="text-gray-700">
+                    Aide à <span class="font-semibold text-blue-600" th:text="${h.beneficiary.fullName}"></span> —
+                    <span class="text-green-600" th:text="${h.payment.amount} + ' Ar'"></span> —
+                    <span class="italic text-sm" th:text="${h.accidentDescription}"></span>
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
